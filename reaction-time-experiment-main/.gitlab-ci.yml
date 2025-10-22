@@ -1,0 +1,21 @@
+# This is a GitLab CI configuration file.
+# It is used to deploy the project to Pages on scc-source.lancs.ac.uk on every push to the main branch.
+#
+# You do not need to edit this file.
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  image: alpine:3.19
+  script:
+    # Create a public directory
+    - mkdir -p public
+    # Copy all files to the public directory except for: the public directory itself, .git, .gitlab-ci.yml, LICENSE, and README.md
+    - for p in .* *; do [ "$p" = "." ] || [ "$p" = ".." ] || [ "$p" = "public" ] || [ "$p" = ".git" ] || [ "$p" = ".gitlab-ci.yml" ] || [ "$p" = "LICENSE" ] || [ "$p" = "README.md" ] || cp -r "$p" public/; done
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
