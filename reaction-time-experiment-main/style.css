@@ -54,6 +54,7 @@ h1 {
 }
 
 div#stimulus {
+  position: relative; /* 添加相对定位，作为十字的定位参考 */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -152,4 +153,36 @@ span#time{
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* 红色十字注视点样式 */
+#fixation-cross {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  display: none; /* 默认隐藏 */
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* 确保在其他元素之上 */
+}
+
+#fixation-cross.visible {
+  display: flex; /* 显示状态 */
+}
+
+.cross-horizontal {
+  position: absolute;
+  width: 40px;
+  height: 4px;
+  background-color: red;
+}
+
+.cross-vertical {
+  position: absolute;
+  width: 4px;
+  height: 40px;
+  background-color: red;
 }
